@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bidirectional Transfer from Abstract Models | NeuS 2025</title>
+  <meta name="description" content="Learn the task automaton and a teacher simulator from offline data, train a teacher there, and distil its knowledge back into the real environment with automaton distillation. NeuS 2025, Mahyar Alinejad et al.">
+  <meta name="author" content="Mahyar Alinejad">
+  <link rel="canonical" href="https://mahyar333.github.io/projects/bidirectional/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Mahyar Alinejad">
+  <meta property="og:title" content="Bidirectional End-to-End Transfer from Abstract Models in Non-Markovian RL (NeuS 2025)">
+  <meta property="og:description" content="Automaton and teacher simulator learned from offline data, knowledge distilled back to the student. DDPG success 0.83 vs 0.00 without distillation.">
+  <meta property="og:url" content="https://mahyar333.github.io/projects/bidirectional/">
+  <meta property="og:image" content="https://mahyar333.github.io/projects/bidirectional/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="citation_title" content="Bidirectional End-to-End Framework for Transfer from Abstract Models in Non-Markovian Reinforcement Learning">
+  <meta name="citation_author" content="Alinejad, Mahyar">
+  <meta name="citation_author" content="Nwaorgu, Precious">
+  <meta name="citation_author" content="Enyioha, Chinwendu">
+  <meta name="citation_author" content="Wang, Yue">
+  <meta name="citation_author" content="Velasquez, Alvaro">
+  <meta name="citation_author" content="Atia, George">
+  <meta name="citation_conference_title" content="International Conference on Neuro-symbolic Systems (NeuS)">
+  <meta name="citation_publication_date" content="2025">
+  <meta name="citation_pdf_url" content="https://proceedings.mlr.press/v288/alinejad25a/alinejad25a.pdf">
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../project.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Bidirectional End-to-End Framework for Transfer from Abstract Models in Non-Markovian Reinforcement Learning",
+    "author": [
+      { "@type": "Person", "name": "Mahyar Alinejad", "url": "https://mahyar333.github.io/" },
+      { "@type": "Person", "name": "Precious Nwaorgu" },
+      { "@type": "Person", "name": "Chinwendu Enyioha" },
+      { "@type": "Person", "name": "Yue Wang" },
+      { "@type": "Person", "name": "Alvaro Velasquez" },
+      { "@type": "Person", "name": "George Atia" }
+    ],
+    "datePublished": "2025",
+    "isPartOf": { "@type": "PublicationEvent", "name": "NeuS 2025" },
+    "url": "https://mahyar333.github.io/projects/bidirectional/",
+    "sameAs": ["https://proceedings.mlr.press/v288/alinejad25a.html", "https://github.com/mahyar333/Bidirectional-RL"],
+    "image": "https://mahyar333.github.io/projects/bidirectional/og.png"
+  }
+  </script>
+  <script>
+    try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="../../" aria-label="Home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" /><circle cx="16" cy="16" r="9" /></svg>
+        <span>Mahyar Alinejad</span>
+      </a>
+      <nav aria-label="Sections">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../../#about">About</a></li>
+          <li><a href="../../#publications">Publications</a></li>
+          <li><a href="../" aria-current="page">Projects</a></li>
+          <li><a href="../../#code">Code</a></li>
+          <li><a href="../../#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M1.5 12H4M20 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+      <main id="main">
+    <!-- ============================== TITLE ============================== -->
+    <section class="p-hero">
+      <div class="wrap">
+        <p class="crumbs"><a href="../">Projects</a> / Bidirectional transfer</p>
+        <span class="p-venue">NeuS 2025 · PMLR 288</span>
+        <h1 class="p-title">Bidirectional End-to-End Framework for Transfer from Abstract Models in Non-Markovian Reinforcement Learning</h1>
+        <p class="p-short">Bidirectional-RL</p>
+        <p class="p-authors">
+          <a class="me" href="../../">Mahyar&nbsp;Alinejad</a><sup>1</sup>,&nbsp;
+          Precious&nbsp;Nwaorgu<sup>1</sup>,&nbsp;
+          Chinwendu&nbsp;Enyioha<sup>1</sup>,&nbsp;
+          Yue&nbsp;Wang<sup>1</sup>,&nbsp;
+          Alvaro&nbsp;Velasquez<sup>2</sup>,&nbsp;
+          George&nbsp;Atia<sup>1</sup>
+        </p>
+        <p class="p-affil"><sup>1</sup>University&nbsp;of&nbsp;Central&nbsp;Florida &nbsp;·&nbsp; <sup>2</sup>University&nbsp;of&nbsp;Colorado&nbsp;Boulder</p>
+        <div class="p-links">
+          <a class="btn" href="https://proceedings.mlr.press/v288/alinejad25a.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l6 6v14H6z M14 2v6h6" fill="none" stroke="currentColor" stroke-width="2"/></svg>Paper</a>
+          <a class="btn" href="https://github.com/mahyar333/Bidirectional-RL" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>Code</a>
+          <a class="btn ghost" href="#bibtex">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H8c0 2 1 3 3 3v3c-3 0-5-2-5-6zM14 7h4v4h-3c0 2 1 3 3 3v3c-3 0-5-2-5-6z"/></svg>BibTeX</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== TL;DR + OVERVIEW ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <p class="tldr"><b>TL;DR</b> &nbsp;Learn the task's automaton <i>and</i> a simple teacher simulator from offline data, train a
+          teacher there, and distil what it learned back into the real environment. Nothing about the task is given: the
+          automaton, the simulator and the teacher's knowledge all come from logged successes and failures.</p>
+
+        <figure class="fig">
+          <svg class="pipe" viewBox="0 0 860 300" role="img" aria-label="Bidirectional framework: offline trajectories give a DFA through RPNI and a learned teacher simulator through abstraction and counting; a teacher is trained in the simulator combined with the DFA, and its distilled values per automaton transition guide the student in the original environment.">
+            <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+            <text class="stage" x="300" y="22">STUDENT → TEACHER: LEARN FROM DATA</text>
+            <text class="stage" x="730" y="22">TEACHER → STUDENT</text>
+            <g class="box"><rect x="10" y="110" width="150" height="74" rx="12"/><text x="85" y="142">Offline trajectories</text><text class="sub" x="85" y="163">successes &amp; failures</text></g>
+            <g class="box key"><rect x="215" y="40" width="190" height="70" rx="12"/><text x="310" y="70">RPNI → learned DFA</text><text class="sub" x="310" y="90">task structure</text></g>
+            <g class="box key"><rect x="215" y="185" width="190" height="70" rx="12"/><text x="310" y="215">Learned simulator</text><text class="sub" x="310" y="235">abstraction + counts (Eq. 3)</text></g>
+            <g class="box"><rect x="455" y="110" width="160" height="74" rx="12"/><text x="535" y="142">Teacher</text><text class="sub" x="535" y="163">Q-learning on sim ⊗ DFA</text></g>
+            <g class="box key"><rect x="665" y="110" width="185" height="74" rx="12"/><text x="757" y="142">Student</text><text class="sub" x="757" y="163">real env ⊗ DFA, AD target</text></g>
+            <path class="arrow" d="M160 135 C190 125 190 80 211 76" marker-end="url(#ah)"/>
+            <path class="arrow" d="M160 160 C190 170 190 215 211 220" marker-end="url(#ah)"/>
+            <path class="arrow" d="M405 76 C430 80 430 125 451 135" marker-end="url(#ah)"/>
+            <path class="arrow" d="M405 220 C430 215 430 170 451 160" marker-end="url(#ah)"/>
+            <path class="arrow" d="M615 147 H661" marker-end="url(#ah)"/>
+            <text class="lab" x="638" y="204">Q_avg(ω, σ)</text>
+            <path class="arrow" d="M405 60 H757 V106" marker-end="url(#ah)"/>
+            <text class="lab" x="600" y="52">the same DFA tracks the student's progress</text>
+          </svg>
+          <figcaption>The bidirectional framework. Both the automaton and the teacher's environment are learned from the
+            offline data; the teacher's values return to the student through automaton distillation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================== ABSTRACT ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Abstract</h2>
+        <p class="abstract">We propose a bidirectional end-to-end reinforcement learning (RL) framework for solving complex
+          non-Markovian tasks in discrete and continuous environments. Instead of directly learning policies in high-dimensional
+          spaces, we first construct a simplified teacher model as a surrogate environment from offline trajectories.
+          Simultaneously, we infer a Deterministic Finite Automaton (DFA) using the RPNI algorithm to capture task dependencies. A
+          policy is learned in the surrogate environment and transferred to the original domain via automaton distillation, which
+          guides policy learning more effectively than direct RL in the original environment. Our framework integrates DQN for
+          discrete tasks and DDPG/TD3 for continuous settings. Empirical results demonstrate that this structured transfer
+          significantly improves learning efficiency, and convergence speed, outperforming standard RL baselines.</p>
+      </div>
+    </section>
+
+    <!-- ============================== TEACHER SIDE ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <h2 class="p-h2">What is learned from data alone</h2>
+        <ol class="steps">
+          <li><b>The task automaton.</b> Label traces of the offline trajectories (e.g. <code>key chest shield dragon</code>) feed
+            RPNI, which recovers the true task structure in every environment.</li>
+          <li><b>The teacher's environment.</b> Student states are mapped onto a small grid (e.g. 20&times;20 &rarr; 5&times;5)
+            and the transitions, with the labels they emit, are counted with Laplace smoothing. On independent data the
+            learned simulator predicts 68&ndash;81% of transitions as its most likely outcome.</li>
+          <li><b>The teacher's knowledge.</b> A teacher trained in the learned simulator and automaton reaches 96&ndash;100%
+            task completion there; its values, averaged per automaton transition, are highest where the task is completed.</li>
+        </ol>
+        <figure class="fig"><img src="img/learned_automata.png" alt="Automata learned by RPNI for Dungeon Quest, Blind Craftsman, OfficeWorld and Building Bridge" loading="lazy">
+          <figcaption>Automata learned by RPNI from offline data (seed 0).</figcaption></figure>
+        <div class="fig-row">
+          <figure class="fig"><img src="img/teacher_curves.png" alt="Teacher acceptance rate and steps per episode in the learned simulators" loading="lazy"><figcaption>Teacher learning in the learned simulators</figcaption></figure>
+          <figure class="fig"><img src="img/distilled_values.png" alt="Heatmaps of distilled values per automaton state and label" loading="lazy"><figcaption>Distilled values Q<sub>avg</sub>(&omega;, &sigma;)</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== RESULTS ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Results</h2>
+        <div class="kpis">
+          <div class="kpi"><div class="v">4 / 4</div><div class="k">environments where AD learns fastest (Q-learning)</div></div>
+          <div class="kpi"><div class="v">0.83 vs 0.00</div><div class="k">DDPG success with vs. without AD</div></div>
+          <div class="kpi"><div class="v">0 task specs</div><div class="k">automaton and simulator learned from data</div></div>
+        </div>
+
+        <h3 class="p-h3">Discrete students (Q-learning)</h3>
+        <div class="table-wrap">
+          <table class="p-table">
+            <thead><tr><th>Environment</th><th>Episodes to 90%: with AD</th><th>without AD</th><th>QAS</th></tr></thead>
+            <tbody>
+              <tr><td>Dungeon Quest</td><td class="win">134</td><td>156</td><td>249</td></tr>
+              <tr><td>Blind Craftsman</td><td class="win">234</td><td>271</td><td>never (0/5)</td></tr>
+              <tr><td>OfficeWorld</td><td class="win">88</td><td>113</td><td>131</td></tr>
+              <tr><td>Building Bridge</td><td class="win">113</td><td>179</td><td>177</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">5 seeds per method; each seed runs the whole pipeline from its own offline dataset. Student grids are
+          the paper's layouts scaled by 2 (Bridge at the paper's size). QAS sees the true task progress but has no automaton.</p>
+        <div class="fig-row">
+          <figure class="fig"><img src="img/dungeon_quest_tabular.png" alt="Dungeon Quest learning curves" loading="lazy"><figcaption>Dungeon Quest</figcaption></figure>
+          <figure class="fig"><img src="img/bridge_tabular.png" alt="Building Bridge learning curves" loading="lazy"><figcaption>Building Bridge</figcaption></figure>
+        </div>
+
+        <h3 class="p-h3">Continuous students (DDPG and TD3)</h3>
+        <div class="table-wrap">
+          <table class="p-table">
+            <thead><tr><th>Learner</th><th>Method</th><th>Episodes to 90%</th><th>Success (all episodes)</th><th>Success (last 50)</th></tr></thead>
+            <tbody>
+              <tr><td>DDPG</td><td class="win">with AD</td><td class="win">81</td><td class="win">0.83</td><td class="win">1.00</td></tr>
+              <tr><td></td><td>without AD</td><td>never (0/5)</td><td>0.00</td><td>0.00</td></tr>
+              <tr><td>TD3</td><td class="win">with AD</td><td class="win">124 (4/5)</td><td class="win">0.59</td><td class="win">0.80</td></tr>
+              <tr><td></td><td>without AD</td><td>203 (3/5)</td><td>0.34</td><td>0.59</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="fig-row">
+          <figure class="fig"><img src="img/dungeon_quest_continuous_ddpg.png" alt="Continuous Dungeon Quest, DDPG learning curves" loading="lazy"><figcaption>Continuous Dungeon Quest, DDPG</figcaption></figure>
+          <figure class="fig"><img src="img/dungeon_quest_continuous_td3.png" alt="Continuous Dungeon Quest, TD3 learning curves" loading="lazy"><figcaption>Continuous Dungeon Quest, TD3</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CODE ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <h2 class="p-h2">Try it</h2>
+        <pre class="code"><button class="copy" type="button" data-copy="quickstart">Copy</button><code id="quickstart">git clone https://github.com/mahyar333/Bidirectional-RL.git && cd Bidirectional-RL
+pip install -e ".[dev]"
+python -m bidirectional.run --config configs/dungeon_quest.yaml --learner tabular   <span class="c"># data → DFA → simulator → teacher → students</span>
+python -m bidirectional.teacher_report --configs configs --out assets              <span class="c"># what the teacher learned</span></code></pre>
+        <p class="note">Python 3.9+, MIT license. See the <a href="https://github.com/mahyar333/Bidirectional-RL" target="_blank" rel="noopener">repository</a> for the full documentation.</p>
+      </div>
+    </section>
+
+    <!-- ============================== BIBTEX ============================== -->
+    <section class="p-section alt" id="bibtex">
+      <div class="narrow">
+        <h2 class="p-h2">BibTeX</h2>
+        <pre class="code"><button class="copy" type="button" data-copy="bib">Copy</button><code id="bib">@inproceedings{alinejad2025bidirectional,
+  title     = {Bidirectional End-to-End Framework for Transfer from Abstract Models in Non-Markovian Reinforcement Learning},
+  author    = {Alinejad, Mahyar and Nwaorgu, Precious and Enyioha, Chinwendu and Wang, Yue and Velasquez, Alvaro and Atia, George},
+  booktitle = {Proceedings of the International Conference on Neuro-symbolic Systems (NeuS)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {288},
+  pages     = {643--660},
+  year      = {2025},
+  url       = {https://proceedings.mlr.press/v288/alinejad25a.html}
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================== RELATED ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <h2 class="p-h2">Related projects</h2>
+        <div class="related">
+          <a class="rel" href="../hipo/"><span class="v">ICASSP 2025</span>
+            <h4>HiPO</h4><p>Learn the task automaton passively from offline data, then plan online.</p></a>
+          <a class="rel" href="../darp/"><span class="v">ICASSP 2026</span>
+            <h4>DARP</h4><p>Learn the task's automaton while learning the policy, and fix it when reality disagrees.</p></a>
+          <a class="rel" href="../cadent/"><span class="v">AISTATS 2026</span>
+            <h4>CADENT</h4><p>Transfer what to achieve and how to act, and let the student decide when to trust the teacher.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>© <span id="year">2026</span> Mahyar Alinejad · Orlando, FL · <a href="../">All projects</a></p>
+    </div>
+  </footer>
+
+  <script src="../../main.js"></script>
+  <script src="../project.js"></script>
+</body>
+</html>
