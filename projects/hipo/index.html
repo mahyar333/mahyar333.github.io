@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HiPO: Passive Grammatical Inference and Online Planning | ICASSP 2025</title>
+  <meta name="description" content="HiPO learns the structure of a non-Markovian task as an automaton from offline trajectories with RPNI, then plans online on the product MDP. ICASSP 2025, Mahyar Alinejad et al.">
+  <meta name="author" content="Mahyar Alinejad">
+  <link rel="canonical" href="https://mahyar333.github.io/projects/hipo/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Mahyar Alinejad">
+  <meta property="og:title" content="HiPO: Hybrid Offline Passive Grammatical Inference and Online Planning (ICASSP 2025)">
+  <meta property="og:description" content="Learn what the task is from offline data (RPNI automaton), then learn how to do it online. No environment queries needed to learn the task.">
+  <meta property="og:url" content="https://mahyar333.github.io/projects/hipo/">
+  <meta property="og:image" content="https://mahyar333.github.io/projects/hipo/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="citation_title" content="Hybrid Offline Passive Grammatical Inference and Online Planning for Non-Markovian Tasks">
+  <meta name="citation_author" content="Alinejad, Mahyar">
+  <meta name="citation_author" content="Velasquez, Alvaro">
+  <meta name="citation_author" content="Wang, Yue">
+  <meta name="citation_author" content="Atia, George">
+  <meta name="citation_conference_title" content="IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)">
+  <meta name="citation_publication_date" content="2025">
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../project.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Hybrid Offline Passive Grammatical Inference and Online Planning for Non-Markovian Tasks",
+    "author": [
+      { "@type": "Person", "name": "Mahyar Alinejad", "url": "https://mahyar333.github.io/" },
+      { "@type": "Person", "name": "Alvaro Velasquez" },
+      { "@type": "Person", "name": "Yue Wang" },
+      { "@type": "Person", "name": "George Atia" }
+    ],
+    "datePublished": "2025",
+    "isPartOf": { "@type": "PublicationEvent", "name": "IEEE ICASSP 2025" },
+    "url": "https://mahyar333.github.io/projects/hipo/",
+    "sameAs": ["https://ieeexplore.ieee.org/document/10889467", "https://github.com/mahyar333/HiPO"],
+    "image": "https://mahyar333.github.io/projects/hipo/og.png"
+  }
+  </script>
+  <script>
+    try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="../../" aria-label="Home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" /><circle cx="16" cy="16" r="9" /></svg>
+        <span>Mahyar Alinejad</span>
+      </a>
+      <nav aria-label="Sections">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../../#about">About</a></li>
+          <li><a href="../../#publications">Publications</a></li>
+          <li><a href="../" aria-current="page">Projects</a></li>
+          <li><a href="../../#code">Code</a></li>
+          <li><a href="../../#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M1.5 12H4M20 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============================== TITLE ============================== -->
+    <section class="p-hero">
+      <div class="wrap">
+        <p class="crumbs"><a href="../">Projects</a> / HiPO</p>
+        <span class="p-venue">IEEE ICASSP 2025</span>
+        <h1 class="p-title">Hybrid Offline Passive Grammatical Inference and Online Planning for Non-Markovian Tasks</h1>
+        <p class="p-short">HiPO</p>
+        <p class="p-authors">
+          <a class="me" href="../../">Mahyar&nbsp;Alinejad</a><sup>1</sup>,&nbsp;
+          Alvaro&nbsp;Velasquez<sup>2</sup>,&nbsp;
+          Yue&nbsp;Wang<sup>1</sup>,&nbsp;
+          George&nbsp;Atia<sup>1</sup>
+        </p>
+        <p class="p-affil"><sup>1</sup>University&nbsp;of&nbsp;Central&nbsp;Florida &nbsp;·&nbsp; <sup>2</sup>University&nbsp;of&nbsp;Colorado&nbsp;Boulder</p>
+        <div class="p-links">
+          <a class="btn" href="https://ieeexplore.ieee.org/document/10889467" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l6 6v14H6z M14 2v6h6" fill="none" stroke="currentColor" stroke-width="2"/></svg>Paper</a>
+          <a class="btn" href="https://github.com/mahyar333/HiPO" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>Code</a>
+          <a class="btn" href="poster.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3z M8 20h8 M12 16v4" fill="none" stroke="currentColor" stroke-width="2"/></svg>Poster</a>
+          <a class="btn ghost" href="#bibtex">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H8c0 2 1 3 3 3v3c-3 0-5-2-5-6zM14 7h4v4h-3c0 2 1 3 3 3v3c-3 0-5-2-5-6z"/></svg>BibTeX</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== TL;DR + OVERVIEW ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <p class="tldr"><b>TL;DR</b> &nbsp;Learn <i>what</i> the task is from offline data, then learn <i>how</i> to do it online.
+          HiPO infers the task's automaton passively with RPNI from logged successes and failures, so it needs no environment
+          queries to discover the task, and then plans on the product of the environment and the learned automaton.</p>
+
+        <figure class="fig">
+          <svg class="pipe" viewBox="0 0 860 250" role="img" aria-label="HiPO pipeline: offline trajectories are turned into label traces, RPNI learns a DFA, the DFA is combined with the environment into a product MDP, and Q-learning finds the policy.">
+            <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+            <text class="stage" x="250" y="22">OFFLINE: LEARN WHAT THE TASK IS</text>
+            <text class="stage" x="690" y="22">ONLINE: LEARN HOW TO DO IT</text>
+            <line x1="470" y1="34" x2="470" y2="236" stroke="var(--line)" stroke-dasharray="4 5"/>
+            <g class="box"><rect x="10" y="60" width="150" height="70" rx="12"/><text x="85" y="91">Offline trajectories</text><text class="sub" x="85" y="111">logged once</text></g>
+            <g class="box"><rect x="190" y="60" width="130" height="70" rx="12"/><text x="255" y="91">Label traces</text><text class="sub" x="255" y="111">positive / negative</text></g>
+            <g class="box key"><rect x="350" y="60" width="100" height="70" rx="12"/><text x="400" y="91">RPNI</text><text class="sub" x="400" y="111">passive</text></g>
+            <g class="box key"><rect x="350" y="160" width="100" height="62" rx="12"/><text x="400" y="188">Learned DFA</text><text class="sub" x="400" y="206">task automaton</text></g>
+            <g class="box"><rect x="500" y="60" width="150" height="70" rx="12"/><text x="575" y="91">Environment</text><text class="sub" x="575" y="111">labelled states</text></g>
+            <g class="box key"><rect x="500" y="160" width="150" height="62" rx="12"/><text x="575" y="188">Product MDP</text><text class="sub" x="575" y="206">(s, q) states</text></g>
+            <g class="box"><rect x="690" y="160" width="160" height="62" rx="12"/><text x="770" y="188">Q-learning</text><text class="sub" x="770" y="206">policy π(s, q)</text></g>
+            <path class="arrow" d="M160 95 H186" marker-end="url(#ah)"/>
+            <path class="arrow" d="M320 95 H346" marker-end="url(#ah)"/>
+            <path class="arrow" d="M400 130 V156" marker-end="url(#ah)"/>
+            <path class="arrow" d="M450 191 H496" marker-end="url(#ah)"/>
+            <path class="arrow" d="M575 130 V156" marker-end="url(#ah)"/>
+            <path class="arrow" d="M650 191 H686" marker-end="url(#ah)"/>
+            <text class="lab" x="175" y="52">L(s)</text>
+            <text class="lab" x="473" y="183">⊗</text>
+          </svg>
+          <figcaption>The HiPO pipeline. The automaton is learned once from data; only the policy is learned online.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================== ABSTRACT ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Abstract</h2>
+        <p class="abstract">Planning in non-Markovian environments often requires inferring task structures, such as reward machines,
+          through interactions with the environment. Traditional active grammatical inference methods, like Angluin's L*
+          algorithm, depend on continuous querying to learn task structures for the underlying planning objectives. In contrast,
+          we propose a hybrid approach that combines passive grammatical inference, using the Regular Positive and Negative
+          Inference (RPNI) algorithm, with online planning. By leveraging pre-collected positive and negative trajectories, RPNI
+          learns a deterministic finite automaton (DFA) that captures the task structure, significantly reducing the need for
+          real-time interactions. Subsequently, online planning is conducted over the product MDP, which integrates the
+          environment with the learned DFA. This hybrid methodology minimizes the cost of online interactions and improves
+          learning efficiency in complex environments. Our approach outperforms baseline algorithms in terms of runtime and
+          sample complexity, and is well-suited for real-world scenarios where task structures are implicit, and interactions
+          with the environment are expensive.</p>
+      </div>
+    </section>
+
+    <!-- ============================== METHOD ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <h2 class="p-h2">How it works</h2>
+        <p>In a <b>non-Markovian</b> task the reward depends on the history, not only on the current state: in
+          <i>"get coffee, then the mail, then go to the office"</i>, standing in the office pays off only if the coffee and the
+          mail were collected first, in that order. Representing the task as a deterministic finite automaton (DFA) makes it
+          Markovian again, but the automaton is usually unknown, and active learners such as L* discover it by querying the
+          environment over and over.</p>
+        <ol class="steps">
+          <li><b>Offline automaton learning.</b> Logged trajectories are turned into label sequences (e.g. <code>coffee mail
+            office</code>) and split into successes and failures. RPNI builds a prefix-tree acceptor from the successes and
+            merges states as long as every failure stays rejected.</li>
+          <li><b>Product MDP.</b> The environment and the learned DFA are combined: (s, q) &rarr; (s&prime;, &delta;(q, L(s&prime;))),
+            so the state now records which sub-goals are done.</li>
+          <li><b>Online planning.</b> Q-learning on the product MDP learns the policy; advancing the automaton is rewarded, so the
+            learned task structure guides exploration.</li>
+        </ol>
+
+        <figure class="fig">
+          <svg viewBox="0 0 640 120" role="img" aria-label="Automaton learned by RPNI in the Office world: q0 to q1 on coffee, q1 to q2 on mail, q2 to accepting q3 on office.">
+            <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+            <g class="state"><circle cx="70" cy="60" r="28"/><text x="70" y="66">q0</text></g>
+            <g class="state"><circle cx="240" cy="60" r="28"/><text x="240" y="66">q1</text></g>
+            <g class="state"><circle cx="410" cy="60" r="28"/><text x="410" y="66">q2</text></g>
+            <g class="state accept"><circle cx="580" cy="60" r="28"/><circle cx="580" cy="60" r="22"/><text x="580" y="66">q3</text></g>
+            <path class="edge" d="M100 60 H208" marker-end="url(#ah2)"/><text class="elabel" x="155" y="48" text-anchor="middle">coffee</text>
+            <path class="edge" d="M270 60 H378" marker-end="url(#ah2)"/><text class="elabel" x="325" y="48" text-anchor="middle">mail</text>
+            <path class="edge" d="M440 60 H548" marker-end="url(#ah2)"/><text class="elabel" x="495" y="48" text-anchor="middle">office</text>
+          </svg>
+          <figcaption>The automaton RPNI recovers for the Office task from offline data (other labels self-loop). It is exact in every run.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================== ENVIRONMENTS ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Environments</h2>
+        <div class="fig-row">
+          <figure class="fig"><img src="img/office_env.png" alt="Office grid world with 3 by 3 rooms, doors, coffee, mail and office cells" loading="lazy">
+            <figcaption><b>Office world</b> (9&times;12): rooms joined by doors. Task: coffee &rarr; mail &rarr; office.</figcaption></figure>
+          <figure class="fig"><img src="img/minecraft_env.png" alt="Minecraft grid world with wood, iron, factory and bridge cells" loading="lazy">
+            <figcaption><b>Minecraft world</b> (15&times;15). Task: wood &rarr; iron &rarr; factory &rarr; bridge.</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== RESULTS ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <h2 class="p-h2">Results</h2>
+        <div class="kpis">
+          <div class="kpi"><div class="v">0 queries</div><div class="k">to learn the task automaton</div></div>
+          <div class="kpi"><div class="v">~70 episodes</div><div class="k">to converge in the Office world (&lt; 0.1 s)</div></div>
+          <div class="kpi"><div class="v">exact DFA</div><div class="k">recovered by RPNI in every run</div></div>
+        </div>
+
+        <h3 class="p-h3">Much faster than active automaton learning</h3>
+        <p>Active baselines (AGI / L*, JIRP, AFRAI) query the environment to learn the automaton and need tens of seconds to
+          reach maximum reward; HiPO gets there in a fraction of a second.</p>
+        <div class="fig-row">
+          <figure class="fig"><img src="img/office_hipo_time.png" alt="HiPO reward over time in the Office world" loading="lazy"><figcaption>HiPO, Office</figcaption></figure>
+          <figure class="fig"><img src="img/office_baselines_time.png" alt="AGI, JIRP and AFRAI reward over time in the Office world" loading="lazy"><figcaption>AGI, JIRP, AFRAI, Office</figcaption></figure>
+          <figure class="fig"><img src="img/minecraft_hipo_time.png" alt="HiPO reward over time in the Minecraft world" loading="lazy"><figcaption>HiPO, Minecraft</figcaption></figure>
+          <figure class="fig"><img src="img/minecraft_baselines_time.png" alt="AGI, JIRP and AFRAI reward over time in the Minecraft world" loading="lazy"><figcaption>AGI, JIRP, AFRAI, Minecraft</figcaption></figure>
+        </div>
+
+        <h3 class="p-h3">Fewer episodes than an augmented state space</h3>
+        <p>QAS gives Q-learning one "visited" bit per sub-goal instead of an automaton. HiPO converges in far fewer episodes.</p>
+        <div class="fig-row">
+          <figure class="fig"><img src="img/office_vs_qas_episode.png" alt="HiPO versus QAS reward per episode in the Office world" loading="lazy"><figcaption>Office</figcaption></figure>
+          <figure class="fig"><img src="img/minecraft_vs_qas_episode.png" alt="HiPO versus QAS reward per episode in the Minecraft world" loading="lazy"><figcaption>Minecraft</figcaption></figure>
+        </div>
+
+        <h3 class="p-h3">Reproduced with the open-source code (5 seeds)</h3>
+        <div class="fig-row">
+          <figure class="fig"><img src="img/office_reward_vs_episode.png" alt="Reproduced reward per episode in the Office world, HiPO versus QAS" loading="lazy"><figcaption>Office, mean &plusmn; std</figcaption></figure>
+          <figure class="fig"><img src="img/minecraft_reward_vs_episode.png" alt="Reproduced reward per episode in the Minecraft world, HiPO versus QAS" loading="lazy"><figcaption>Minecraft, mean &plusmn; std</figcaption></figure>
+        </div>
+        <div class="table-wrap">
+          <table class="p-table">
+            <thead><tr><th>Environment</th><th>Method</th><th>Episodes to converge (median)</th><th>Final normalized reward</th><th>Training time</th></tr></thead>
+            <tbody>
+              <tr><td>Office</td><td class="win">HiPO</td><td class="win">73</td><td class="win">1.00</td><td class="win">0.09 s</td></tr>
+              <tr><td>Office</td><td>QAS</td><td>not within 500</td><td>0.88</td><td>0.29 s</td></tr>
+              <tr><td>Minecraft</td><td class="win">HiPO</td><td class="win">132</td><td class="win">0.99</td><td class="win">0.24 s</td></tr>
+              <tr><td>Minecraft</td><td>QAS</td><td>not within 1000</td><td>0.89</td><td>0.57 s</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Normalized reward = optimal steps / episode steps for successful episodes (1.0 = shortest path), 0 otherwise.
+          Converged = 20-episode moving average &ge; 0.95.</p>
+        <div class="fig-row">
+          <figure class="fig"><img src="img/office_policy.png" alt="Learned greedy HiPO policy drawn on the Office grid" loading="lazy"><figcaption>Learned policy, Office (32 steps, optimal)</figcaption></figure>
+          <figure class="fig"><img src="img/minecraft_policy.png" alt="Learned greedy HiPO policy drawn on the Minecraft grid" loading="lazy"><figcaption>Learned policy, Minecraft (49 steps, optimal)</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== POSTER ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <h2 class="p-h2">Poster</h2>
+        <figure class="fig">
+          <a href="poster.pdf" target="_blank" rel="noopener"><img src="img/poster.jpg" alt="Conference poster for this paper" loading="lazy"></a>
+          <figcaption>Presented at IEEE ICASSP 2025, Hyderabad, India. <a href="poster.pdf" target="_blank" rel="noopener">Download the poster (PDF)</a>.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================== CODE ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Try it</h2>
+        <pre class="code"><button class="copy" type="button" data-copy="quickstart">Copy</button><code id="quickstart">git clone https://github.com/mahyar333/HiPO.git && cd HiPO
+pip install -e ".[dev]"
+python -m hipo.run --config configs/office.yaml      <span class="c"># learn the DFA, then plan</span>
+python -m hipo.plot results/office                   <span class="c"># figures</span></code></pre>
+        <p class="note">Python 3.9+, MIT license. See the <a href="https://github.com/mahyar333/HiPO" target="_blank" rel="noopener">repository</a> for the full documentation.</p>
+      </div>
+    </section>
+
+    <!-- ============================== BIBTEX ============================== -->
+    <section class="p-section" id="bibtex">
+      <div class="narrow">
+        <h2 class="p-h2">BibTeX</h2>
+        <pre class="code"><button class="copy" type="button" data-copy="bib">Copy</button><code id="bib">@inproceedings{alinejad2025hipo,
+  title     = {Hybrid Offline Passive Grammatical Inference and Online Planning for Non-Markovian Tasks},
+  author    = {Alinejad, Mahyar and Velasquez, Alvaro and Wang, Yue and Atia, George},
+  booktitle = {IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  year      = {2025},
+  url       = {https://ieeexplore.ieee.org/document/10889467}
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================== RELATED ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Related projects</h2>
+        <div class="related">
+          <a class="rel" href="../darp/"><span class="v">ICASSP 2026</span>
+            <h4>DARP</h4><p>Learn the task's automaton while learning the policy, and fix it when reality disagrees.</p></a>
+          <a class="rel" href="../cadent/"><span class="v">AISTATS 2026</span>
+            <h4>CADENT</h4><p>Transfer what to achieve and how to act, and let the student decide when to trust the teacher.</p></a>
+          <a class="rel" href="../"><span class="v">NeuS 2025</span>
+            <h4>Bidirectional transfer</h4><p>Learned teacher simulators and automaton distillation.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>© <span id="year">2026</span> Mahyar Alinejad · Orlando, FL · <a href="../">All projects</a></p>
+    </div>
+  </footer>
+
+  <script src="../../main.js"></script>
+  <script src="../project.js"></script>
+</body>
+</html>

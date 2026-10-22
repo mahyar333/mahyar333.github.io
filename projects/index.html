@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects | Mahyar Alinejad</title>
+  <meta name="description" content="Research projects by Mahyar Alinejad: automata learning, non-Markovian reinforcement learning, and transfer with automaton distillation. Paper, code and results for each.">
+  <meta name="author" content="Mahyar Alinejad">
+  <link rel="canonical" href="https://mahyar333.github.io/projects/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mahyar Alinejad">
+  <meta property="og:title" content="Research projects | Mahyar Alinejad">
+  <meta property="og:description" content="Automata learning, non-Markovian RL and transfer: paper, code and results for each project.">
+  <meta property="og:url" content="https://mahyar333.github.io/projects/">
+  <meta property="og:image" content="https://mahyar333.github.io/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="project.css">
+  <script>
+    try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="../" aria-label="Home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" /><circle cx="16" cy="16" r="9" /></svg>
+        <span>Mahyar Alinejad</span>
+      </a>
+      <nav aria-label="Sections">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../#about">About</a></li>
+          <li><a href="../#publications">Publications</a></li>
+          <li><a href="./" aria-current="page">Projects</a></li>
+          <li><a href="../#code">Code</a></li>
+          <li><a href="../#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M1.5 12H4M20 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="p-hero">
+      <div class="wrap">
+        <p class="crumbs"><a href="../">Home</a> / Projects</p>
+        <h1 class="p-title">Research projects</h1>
+        <p class="p-affil">Each project has its own page with the method, results, code and citation.</p>
+      </div>
+    </section>
+
+    <section class="p-section">
+      <div class="narrow proj-list">
+        <a class="proj" href="cadent/">
+          <img src="cadent/og.png" alt="CADENT project preview: title and learning curves">
+          <div>
+            <span class="p-venue">AISTATS 2026</span>
+            <h3>CADENT: Gated Hybrid Distillation for Sample-Efficient Transfer in Reinforcement Learning</h3>
+            <p>Combine strategic automaton knowledge with tactical policy knowledge, and gate the teacher per state-action by the student's own experience.</p>
+            <p class="meta">M. Alinejad, Y. Wang, G. Atia · Paper · Code · Poster · BibTeX</p>
+          </div>
+        </a>
+        <a class="proj" href="darp/">
+          <img src="darp/og.png" alt="DARP project preview: title and overview diagram">
+          <div>
+            <span class="p-venue">IEEE ICASSP 2026</span>
+            <h3>DARP: Dynamic Automaton Refinement and Planning for Non-Markovian RL</h3>
+            <p>Learn the task's automaton while learning the policy, refine it online when outcomes disagree, and explore where it is uncertain. No oracle queries.</p>
+            <p class="meta">M. Alinejad, Y. Wang, G. Atia · Paper · Code · Poster · BibTeX</p>
+          </div>
+        </a>
+        <a class="proj" href="hipo/">
+          <img src="hipo/og.png" alt="HiPO project preview: title and learning curve">
+          <div>
+            <span class="p-venue">IEEE ICASSP 2025</span>
+            <h3>HiPO: Hybrid Offline Passive Grammatical Inference and Online Planning for Non-Markovian Tasks</h3>
+            <p>Learn the task's automaton from offline data with RPNI, with no environment queries, then plan online on the product MDP.</p>
+            <p class="meta">M. Alinejad, A. Velasquez, Y. Wang, G. Atia · Paper · Code · Poster · BibTeX</p>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>© <span id="year">2026</span> Mahyar Alinejad · Orlando, FL</p>
+    </div>
+  </footer>
+  <script src="../main.js"></script>
+</body>
+</html>

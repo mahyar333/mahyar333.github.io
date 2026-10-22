@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DARP: Dynamic Automaton Refinement and Planning | ICASSP 2026</title>
+  <meta name="description" content="DARP learns the automaton of a non-Markovian task online from its own episodes, refines it when predictions and outcomes disagree, and explores where the automaton is uncertain. ICASSP 2026, Mahyar Alinejad et al.">
+  <meta name="author" content="Mahyar Alinejad">
+  <link rel="canonical" href="https://mahyar333.github.io/projects/darp/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Mahyar Alinejad">
+  <meta property="og:title" content="DARP: Dynamic Automaton Refinement and Planning for Non-Markovian RL (ICASSP 2026)">
+  <meta property="og:description" content="Learn the task's automaton while you learn the policy, and fix it when reality disagrees. No oracle queries, 11.7x fewer samples than L*.">
+  <meta property="og:url" content="https://mahyar333.github.io/projects/darp/">
+  <meta property="og:image" content="https://mahyar333.github.io/projects/darp/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="citation_title" content="Dynamic Automaton Refinement and Planning for Non-Markovian RL">
+  <meta name="citation_author" content="Alinejad, Mahyar">
+  <meta name="citation_author" content="Wang, Yue">
+  <meta name="citation_author" content="Atia, George">
+  <meta name="citation_conference_title" content="IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_doi" content="10.1109/ICASSP55912.2026.11461556">
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../project.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Dynamic Automaton Refinement and Planning for Non-Markovian RL",
+    "author": [
+      { "@type": "Person", "name": "Mahyar Alinejad", "url": "https://mahyar333.github.io/" },
+      { "@type": "Person", "name": "Yue Wang" },
+      { "@type": "Person", "name": "George Atia" }
+    ],
+    "datePublished": "2026",
+    "isPartOf": { "@type": "PublicationEvent", "name": "IEEE ICASSP 2026" },
+    "url": "https://mahyar333.github.io/projects/darp/",
+    "sameAs": ["https://doi.org/10.1109/ICASSP55912.2026.11461556", "https://github.com/mahyar333/DARP"],
+    "image": "https://mahyar333.github.io/projects/darp/og.png"
+  }
+  </script>
+  <script>
+    try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="../../" aria-label="Home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" /><circle cx="16" cy="16" r="9" /></svg>
+        <span>Mahyar Alinejad</span>
+      </a>
+      <nav aria-label="Sections">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../../#about">About</a></li>
+          <li><a href="../../#publications">Publications</a></li>
+          <li><a href="../" aria-current="page">Projects</a></li>
+          <li><a href="../../#code">Code</a></li>
+          <li><a href="../../#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M1.5 12H4M20 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+    <main id="main">
+    <!-- ============================== TITLE ============================== -->
+    <section class="p-hero">
+      <div class="wrap">
+        <p class="crumbs"><a href="../">Projects</a> / DARP</p>
+        <span class="p-venue">IEEE ICASSP 2026</span>
+        <h1 class="p-title">Dynamic Automaton Refinement and Planning for Non-Markovian RL</h1>
+        <p class="p-short">DARP</p>
+        <p class="p-authors">
+          <a class="me" href="../../">Mahyar&nbsp;Alinejad</a>,&nbsp;
+          Yue&nbsp;Wang,&nbsp;
+          George&nbsp;Atia
+        </p>
+        <p class="p-affil">University&nbsp;of&nbsp;Central&nbsp;Florida</p>
+        <div class="p-links">
+          <a class="btn" href="https://doi.org/10.1109/ICASSP55912.2026.11461556" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l6 6v14H6z M14 2v6h6" fill="none" stroke="currentColor" stroke-width="2"/></svg>Paper</a>
+          <a class="btn" href="https://github.com/mahyar333/DARP" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>Code</a>
+          <a class="btn" href="poster.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3z M8 20h8 M12 16v4" fill="none" stroke="currentColor" stroke-width="2"/></svg>Poster</a>
+          <a class="btn ghost" href="#bibtex">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H8c0 2 1 3 3 3v3c-3 0-5-2-5-6zM14 7h4v4h-3c0 2 1 3 3 3v3c-3 0-5-2-5-6z"/></svg>BibTeX</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== TL;DR + OVERVIEW ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <p class="tldr"><b>TL;DR</b> &nbsp;Learn the task's automaton <i>while</i> you learn the policy, and fix it when reality
+          disagrees. DARP starts from incomplete knowledge (even zero successful examples), refines its automaton online whenever
+          an episode's outcome contradicts it, and explores where the automaton is least certain, with no oracle queries.</p>
+        <figure class="fig">
+          <img src="img/darp_overview.png" alt="DARP overview: an incomplete automaton guides online exploration; an episode succeeds although the automaton rejected it, the inconsistency is detected, and the automaton is refined to accept key, chest, shield, dragon.">
+          <figcaption>An incomplete automaton rejects a trace that actually succeeds. DARP detects the inconsistency and refines the automaton online.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================== ABSTRACT ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Abstract</h2>
+        <p class="abstract">Many sequential decision-making problems require agents not only to learn optimal actions, but also to
+          uncover the temporal rules that determine when action sequences are valid. We propose Dynamic Automaton Refinement and
+          Planning (DARP), a reinforcement learning framework for non-Markovian environments with evolving or incomplete task
+          specifications. Unlike prior methods that assume complete knowledge of the task structure or rely on expensive active
+          querying, DARP passively infers deterministic finite automata (DFA) from trajectory data and refines them online through
+          confidence-weighted RPNI, enabling efficient detection and correction of inconsistencies. Exploration bonuses guide the
+          agent toward low-confidence regions, accelerating the discovery of missing patterns. By incrementally updating the product
+          MDP while preserving learned knowledge, DARP supports robust policy learning even as task structures change. Experiments on
+          grid navigation, multi-resource planning, and sequential coordination demonstrate that DARP discovers task patterns more
+          quickly and with fewer spurious refinements than baselines, offering a principled approach to jointly learning task
+          structure and policies in complex domains.</p>
+      </div>
+    </section>
+
+    <!-- ============================== METHOD ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <h2 class="p-h2">How it works</h2>
+        <p>Passive learners such as RPNI (and our <a href="../hipo/">HiPO</a>) learn the task automaton once from a fixed dataset
+          and are stuck with its mistakes. Active learners such as L* need an oracle that answers thousands of membership and
+          equivalence queries. DARP sits in between: it learns from its <b>own episodes</b> and corrects the automaton exactly when
+          the evidence demands it.</p>
+        <ol class="steps">
+          <li><b>Confidence-weighted automaton learning.</b> RPNI infers a DFA from the positive and negative traces seen so far, and
+            every automaton state carries a confidence score from the evidence that supports it:
+            <span class="eq">c(q) = (|P<sub>q</sub>| + &lambda;|N<sub>q</sub>|) / (|P<sub>q</sub>| + |N<sub>q</sub>| + &beta;)</span></li>
+          <li><b>Online refinement.</b> After each episode the observed outcome is compared with the automaton's prediction. The
+            automaton is re-synthesised on an <b>inconsistency</b> (it predicts the wrong outcome) or a <b>coverage gap</b> (the
+            run visits a low-confidence state).</li>
+          <li><b>Confidence-guided exploration.</b> A UCB-style bonus steers the agent toward rarely visited, poorly supported
+            automaton states:
+            <span class="eq">bonus(s, a) = &alpha; &radic;(log t / N(q)) &middot; max{1 &minus; c(q), 0}</span></li>
+          <li><b>Incremental product-MDP updates.</b> After a refinement, Q-values of unchanged automaton states are kept, new
+            states are initialised from the old ones at the same position, so learning is not restarted.</li>
+        </ol>
+        <figure class="fig" style="max-width:560px;margin-inline:auto">
+          <img src="img/confidence.png" alt="Confidence of automaton states rising as evidence accumulates" loading="lazy">
+          <figcaption>Automaton-state confidence grows with evidence; low-confidence states attract exploration.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================== ENVIRONMENTS ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Tasks</h2>
+        <div class="table-wrap">
+          <table class="p-table">
+            <thead><tr><th></th><th>Dungeon Quest</th><th>Blind Craftsman</th></tr></thead>
+            <tbody>
+              <tr><td>Grid</td><td>7&times;7</td><td>7&times;7, obstacles, 3 wood sources</td></tr>
+              <tr><td>Goal</td><td>reach the dragon with the sword (key &rarr; chest) and the shield</td><td>go home with 3 tools; carry at most 2 wood; the factory turns wood into tools</td></tr>
+              <tr><td>Valid orders</td><td>key&rarr;chest&rarr;shield, key&rarr;shield&rarr;chest, shield&rarr;key&rarr;chest</td><td>1+1+1 (26 steps), 2+1 and 1+2 (20 steps)</td></tr>
+              <tr><td>Initial knowledge</td><td><b>zero</b> positive examples</td><td>one pattern (1+1+1) plus negatives</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">The agent sees only its position; entering a labelled cell emits an event, and success depends on the event
+          order. In Blind Craftsman, RPNI over-generalises the one known pattern into an automaton that also accepts wrong traces,
+          a direct test of refinement.</p>
+      </div>
+    </section>
+
+    <!-- ============================== RESULTS ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <h2 class="p-h2">Results</h2>
+        <div class="kpis">
+          <div class="kpi"><div class="v">100%</div><div class="k">success in Dungeon Quest from zero positive examples</div></div>
+          <div class="kpi"><div class="v">11.7&times;</div><div class="k">fewer environment samples than L* (AGI)</div></div>
+          <div class="kpi"><div class="v">0 queries</div><div class="k">no membership or equivalence oracle</div></div>
+        </div>
+        <div class="fig-row">
+          <figure class="fig"><img src="img/dungeon_quest_success_vs_samples.png" alt="Success rate versus environment samples in Dungeon Quest for DARP, HiPO, Static RPNI and AGI" loading="lazy"><figcaption>Dungeon Quest</figcaption></figure>
+          <figure class="fig"><img src="img/blind_craftsman_success_vs_samples.png" alt="Success rate versus environment samples in Blind Craftsman for DARP, HiPO, Static RPNI and AGI" loading="lazy"><figcaption>Blind Craftsman</figcaption></figure>
+        </div>
+        <div class="table-wrap">
+          <table class="p-table">
+            <thead><tr><th>Environment</th><th>Method</th><th>Samples to 90% success</th><th>Runs reaching 90%</th><th>Final success</th><th>Oracle queries</th></tr></thead>
+            <tbody>
+              <tr><td>Dungeon Quest</td><td class="win">DARP</td><td class="win">6,620 &plusmn; 1,201</td><td class="win">10/10</td><td class="win">100%</td><td class="win">0</td></tr>
+              <tr><td></td><td>HiPO</td><td>&ge; 10,021</td><td>4/10</td><td>41%</td><td>0</td></tr>
+              <tr><td></td><td>Static RPNI</td><td>not reached</td><td>0/10</td><td>2%</td><td>0</td></tr>
+              <tr><td></td><td>AGI (L*)</td><td>77,485</td><td>10/10</td><td>100%</td><td>3,286</td></tr>
+              <tr><td>Blind Craftsman</td><td class="win">DARP</td><td class="win">&ge; 24,786</td><td class="win">9/10</td><td class="win">90%</td><td class="win">0</td></tr>
+              <tr><td></td><td>HiPO</td><td>not reached</td><td>0/10</td><td>0%</td><td>0</td></tr>
+              <tr><td></td><td>Static RPNI</td><td>not reached</td><td>0/10</td><td>0%</td><td>0</td></tr>
+              <tr><td></td><td>AGI (L*)</td><td>30,539</td><td>10/10</td><td>100%</td><td>841</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Reproduced with the open-source code, 10 seeds per method. Samples count every environment step, including
+          the steps needed to answer AGI's queries; runs that never reach 90% count their full budget (&ge; marks lower bounds).</p>
+
+        <h3 class="p-h3">What the numbers show</h3>
+        <ul class="bul">
+          <li><b>Learning from scratch.</b> With no successful example to start from, DARP still reaches 100% success in every run;
+            the passive baselines never recover from their initial automaton.</li>
+          <li><b>Refinement fixes wrong automata.</b> In Blind Craftsman, HiPO and Static RPNI follow an automaton that accepts
+            invalid traces (0% success); DARP corrects it and succeeds in 9 of 10 runs.</li>
+          <li><b>Better strategies than the data contained.</b> DARP discovers the shorter 2+1 and 1+2 crafting orders that its
+            initial knowledge missed, and its Dungeon Quest episodes are near-optimal (12.9 steps vs. 12 optimal).</li>
+        </ul>
+
+        <h3 class="p-h3">Every component matters</h3>
+        <div class="table-wrap">
+          <table class="p-table">
+            <thead><tr><th>Variant</th><th>Dungeon Quest: episodes to 90%</th><th>Blind Craftsman: final success</th></tr></thead>
+            <tbody>
+              <tr><td class="win">Full DARP</td><td class="win">88</td><td class="win">90%</td></tr>
+              <tr><td>No exploration bonus</td><td>106</td><td>80%</td></tr>
+              <tr><td>No Q-value transfer</td><td>121</td><td>55%</td></tr>
+              <tr><td>No coverage-gap trigger</td><td>102</td><td>60%</td></tr>
+              <tr><td>No refinement</td><td>not reached</td><td>0%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== POSTER ============================== -->
+    <section class="p-section">
+      <div class="narrow">
+        <h2 class="p-h2">Poster</h2>
+        <figure class="fig">
+          <a href="poster.pdf" target="_blank" rel="noopener"><img src="img/poster.jpg" alt="Conference poster for this paper" loading="lazy"></a>
+          <figcaption>Presented at IEEE ICASSP 2026. <a href="poster.pdf" target="_blank" rel="noopener">Download the poster (PDF)</a>.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================== CODE ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Try it</h2>
+        <pre class="code"><button class="copy" type="button" data-copy="quickstart">Copy</button><code id="quickstart">git clone https://github.com/mahyar333/DARP.git && cd DARP
+pip install -e ".[dev]"
+python -m darp.run --config configs/dungeon_quest.yaml   <span class="c"># DARP, Static RPNI, HiPO, AGI</span>
+python -m darp.plot results/dungeon_quest                <span class="c"># figures</span></code></pre>
+        <p class="note">Python 3.9+, MIT license. See the <a href="https://github.com/mahyar333/DARP" target="_blank" rel="noopener">repository</a> for the full documentation.</p>
+      </div>
+    </section>
+
+    <!-- ============================== BIBTEX ============================== -->
+    <section class="p-section" id="bibtex">
+      <div class="narrow">
+        <h2 class="p-h2">BibTeX</h2>
+        <pre class="code"><button class="copy" type="button" data-copy="bib">Copy</button><code id="bib">@inproceedings{alinejad2026darp,
+  title     = {Dynamic Automaton Refinement and Planning for Non-Markovian {RL}},
+  author    = {Alinejad, Mahyar and Wang, Yue and Atia, George},
+  booktitle = {IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  year      = {2026},
+  doi       = {10.1109/ICASSP55912.2026.11461556}
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================== RELATED ============================== -->
+    <section class="p-section alt">
+      <div class="narrow">
+        <h2 class="p-h2">Related projects</h2>
+        <div class="related">
+          <a class="rel" href="../hipo/"><span class="v">ICASSP 2025</span>
+            <h4>HiPO</h4><p>Learn the task automaton passively from offline data, then plan online.</p></a>
+          <a class="rel" href="../cadent/"><span class="v">AISTATS 2026</span>
+            <h4>CADENT</h4><p>Transfer what to achieve and how to act, and let the student decide when to trust the teacher.</p></a>
+          <a class="rel" href="../"><span class="v">NeuS 2025</span>
+            <h4>Bidirectional transfer</h4><p>Learned teacher simulators and automaton distillation.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>© <span id="year">2026</span> Mahyar Alinejad · Orlando, FL · <a href="../">All projects</a></p>
+    </div>
+  </footer>
+
+  <script src="../../main.js"></script>
+  <script src="../project.js"></script>
+</body>
+</html>

@@ -1,1 +1,3 @@
 .DS_Store
+.claude/
+projects/tools/__pycache__/
