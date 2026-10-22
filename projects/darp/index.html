@@ -117,8 +117,28 @@
           disagrees. DARP starts from incomplete knowledge (even zero successful examples), refines its automaton online whenever
           an episode's outcome contradicts it, and explores where the automaton is least certain, with no oracle queries.</p>
         <figure class="fig">
-          <img src="img/darp_overview.png" alt="DARP overview: an incomplete automaton guides online exploration; an episode succeeds although the automaton rejected it, the inconsistency is detected, and the automaton is refined to accept key, chest, shield, dragon.">
-          <figcaption>An incomplete automaton rejects a trace that actually succeeds. DARP detects the inconsistency and refines the automaton online.</figcaption>
+          <svg class="pipe" viewBox="0 0 860 300" role="img" aria-label="DARP loop: the current automaton with per-state confidence guides planning and exploration; after each episode the outcome is checked against the automaton; if consistent the agent keeps planning, otherwise confidence-weighted RPNI refines the automaton and the product MDP is updated incrementally, keeping learned Q-values.">
+            <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+            <g class="box key"><rect x="10" y="60" width="170" height="74" rx="12"/><text x="95" y="92">Automaton 𝒜ₜ</text><text class="sub" x="95" y="113">confidence c(q) per state</text></g>
+            <g class="box"><rect x="225" y="60" width="185" height="74" rx="12"/><text x="317" y="92">Plan &amp; explore</text><text class="sub" x="317" y="113">product MDP + UCB bonus</text></g>
+            <g class="box"><rect x="455" y="60" width="160" height="74" rx="12"/><text x="535" y="92">Episode</text><text class="sub" x="535" y="113">trace wₜ, outcome yₜ</text></g>
+            <g class="box key"><rect x="660" y="60" width="190" height="74" rx="12"/><text x="755" y="92">Consistent?</text><text class="sub" x="755" y="113">𝒜ₜ(wₜ) = yₜ and c(q) ≥ θ</text></g>
+            <g class="box key"><rect x="660" y="200" width="190" height="74" rx="12"/><text x="755" y="232">Refine</text><text class="sub" x="755" y="253">confidence-weighted RPNI</text></g>
+            <g class="box"><rect x="355" y="200" width="250" height="74" rx="12"/><text x="480" y="232">Update product MDP</text><text class="sub" x="480" y="253">keep Q-values of unchanged states</text></g>
+            <path class="arrow" d="M180 97 H221" marker-end="url(#ah)"/>
+            <path class="arrow" d="M410 97 H451" marker-end="url(#ah)"/>
+            <path class="arrow" d="M615 97 H656" marker-end="url(#ah)"/>
+            <path class="arrow" d="M755 60 V30 H317 V56" marker-end="url(#ah)"/>
+            <text class="lab" x="536" y="22">yes: keep learning the policy</text>
+            <path class="arrow" d="M755 134 V196" marker-end="url(#ah)"/>
+            <text class="lab" x="766" y="172" style="text-anchor:start">no: inconsistency</text>
+            <text class="lab" x="766" y="187" style="text-anchor:start">or coverage gap</text>
+            <path class="arrow" d="M660 237 H609" marker-end="url(#ah)"/>
+            <path class="arrow" d="M355 237 H95 V138" marker-end="url(#ah)"/>
+            <text class="lab" x="225" y="228">𝒜ₜ₊₁</text>
+          </svg>
+          <figcaption>The DARP loop. The automaton is learned from the agent's own episodes and refined only when an outcome
+            contradicts it or the run reaches a low-confidence state; learned Q-values are kept across refinements.</figcaption>
         </figure>
       </div>
     </section>
